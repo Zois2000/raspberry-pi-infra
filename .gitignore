@@ -1,0 +1,15 @@
+# Secrets
+.env
+*.key
+*.pem
+
+# Temporary files
+*.tmp
+*.log
+
+# Editor files
+.vscode/
+.idea/
+
+# Ansible runtime files
+*.retry
