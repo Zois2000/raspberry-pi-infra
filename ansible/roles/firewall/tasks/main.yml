@@ -1,0 +1,33 @@
+---
+- name: Ensure UFW is installed
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+    update_cache: false
+
+- name: Allow SSH
+  community.general.ufw:
+    rule: allow
+    port: "22"
+    proto: tcp
+
+- name: Set default incoming policy
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+
+- name: Set default outgoing policy
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+
+- name: Allow MQTT from sensor network
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    from_ip: "192.168.137.0/24"
+    to_port: "1884"
+
+- name: Ensure UFW is enabled
+  community.general.ufw:
+    state: enabled

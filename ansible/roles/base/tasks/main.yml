@@ -1,0 +1,8 @@
+---
+- name: Ensure application directory exists
+  ansible.builtin.file:
+    path: /opt/apps
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"

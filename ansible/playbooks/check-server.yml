@@ -1,0 +1,29 @@
+---
+- name: Check Raspberry Pi Server
+  hosts: raspberry_pi
+  gather_facts: true
+
+  tasks:
+    - name: Show hostname
+      ansible.builtin.debug:
+        var: ansible_hostname
+
+    - name: Show operating system
+      ansible.builtin.debug:
+        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+    - name: Show architecture
+      ansible.builtin.debug:
+        var: ansible_architecture
+
+    - name: Show available memory
+      ansible.builtin.debug:
+        msg: "{{ ansible_memfree_mb }} MB free"
+
+    - name: Show total memory
+      ansible.builtin.debug:
+        msg: "{{ ansible_memtotal_mb }} MB total"
+
+    - name: Show memory
+      ansible.builtin.debug:
+        msg: "{{ ansible_memory_mb }} MB"

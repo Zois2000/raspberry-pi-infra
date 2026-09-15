@@ -1,0 +1,14 @@
+---
+- name: Configure raspberry pi base system
+  hosts: raspberry_pi
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Ensure application directory exists
+      ansible.builtin.file:
+        path: /opt/apps
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"

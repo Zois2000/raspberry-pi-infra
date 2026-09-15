@@ -1,0 +1,10 @@
+---
+mosquitto_local_port: 1883
+mosquitto_external_port: 1884
+mosquitto_sensor_network: "192.168.137.0/24"
+mosquitto_sensor_topic_prefix: "sensors"
+
+mosquitto_sensor_users:
+  - "stm32-01"
+
+mosquitto_reader_user: "sensor-reader"

@@ -1,0 +1,10 @@
+# Managed by Ansible.
+# Sensor clients may only publish below their own username.
+
+{% for user in mosquitto_sensor_users %}
+user {{ user }}
+topic write {{ mosquitto_sensor_topic_prefix }}/{{ user }}/#
+{% endfor %}
+
+user {{ mosquitto_reader_user }}
+topic read {{ mosquitto_sensor_topic_prefix }}/#

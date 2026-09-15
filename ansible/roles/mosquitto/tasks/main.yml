@@ -1,0 +1,55 @@
+---
+- name: Ensure Mosquitto packages are installed
+  ansible.builtin.apt:
+    name:
+      - mosquitto
+      - mosquitto-clients
+    state: present
+    update_cache: false
+
+- name: Ensure Mosquitto configuration directory exists
+  ansible.builtin.file:
+    path: /etc/mosquitto/conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install Mosquitto password file
+  ansible.builtin.copy:
+    src: passwd.vault
+    dest: /etc/mosquitto/passwd
+    owner: root
+    group: mosquitto
+    mode: "0640"
+  notify: Restart Mosquitto
+
+- name: Configure Mosquitto ACL
+  ansible.builtin.template:
+    src: acl.conf.j2
+    dest: /etc/mosquitto/acl
+    owner: root
+    group: mosquitto
+    mode: "0640"
+  notify: Restart Mosquitto
+
+- name: Configure Mosquitto listeners
+  ansible.builtin.template:
+    src: listeners.conf.j2
+    dest: /etc/mosquitto/conf.d/10-listeners.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Mosquitto
+
+- name: Remove old local listener configuration
+  ansible.builtin.file:
+    path: /etc/mosquitto/conf.d/10-local-listener.conf
+    state: absent
+  notify: Restart Mosquitto
+
+- name: Ensure Mosquitto is enabled and running
+  ansible.builtin.service:
+    name: mosquitto
+    state: started
+    enabled: true
