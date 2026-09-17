@@ -1,0 +1,12 @@
+services:
+  ansible:
+    build:
+      context: ./docker/ansible
+
+    image: raspberry-pi-ansible
+
+    working_dir: /ansible
+
+    volumes:
+      - ./ansible:/ansible
+      - ${USERPROFILE}/.ssh:/keys:ro

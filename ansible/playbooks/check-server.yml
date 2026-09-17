@@ -6,24 +6,24 @@
   tasks:
     - name: Show hostname
       ansible.builtin.debug:
-        var: ansible_hostname
+        msg: "{{ ansible_facts['hostname'] }}"
 
     - name: Show operating system
       ansible.builtin.debug:
-        msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+        msg: "{{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
 
     - name: Show architecture
       ansible.builtin.debug:
-        var: ansible_architecture
+        msg: "{{ ansible_facts['architecture'] }}"
 
     - name: Show available memory
       ansible.builtin.debug:
-        msg: "{{ ansible_memfree_mb }} MB free"
+        msg: "{{ ansible_facts['memfree_mb'] }} MB free"
 
     - name: Show total memory
       ansible.builtin.debug:
-        msg: "{{ ansible_memtotal_mb }} MB total"
+        msg: "{{ ansible_facts['memtotal_mb'] }} MB total"
 
     - name: Show memory
       ansible.builtin.debug:
-        msg: "{{ ansible_memory_mb }} MB"
+        var: ansible_facts['memory_mb']
