@@ -7,6 +7,11 @@ services:
 
     working_dir: /ansible
 
+    environment:
+      ANSIBLE_PAGER: cat
+      ANSIBLE_VAULT_PASSWORD_FILE: /root/.config/ansible/vault-password
+
     volumes:
       - ./ansible:/ansible
       - ${USERPROFILE}/.ssh:/keys:ro
+      - ${USERPROFILE}/.config/raspberry-pi-infra:/secrets:ro
