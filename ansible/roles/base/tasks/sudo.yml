@@ -1,0 +1,10 @@
+---
+- name: Configure passwordless sudo for Ansible user
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/90-ansible-pi-server
+    content: |
+      pi-server ALL=(ALL:ALL) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: "0440"
+    validate: "/usr/sbin/visudo -cf %s"

@@ -14,4 +14,12 @@ if [ -f /keys/known_hosts ]; then
     chmod 644 /root/.ssh/known_hosts
 fi
 
+mkdir -p /root/.config/ansible
+chmod 700 /root/.config/ansible
+
+if [ -f /secrets/vault-password ]; then
+    cp /secrets/vault-password /root/.config/ansible/vault-password
+    chmod 600 /root/.config/ansible/vault-password
+fi
+
 exec "$@"

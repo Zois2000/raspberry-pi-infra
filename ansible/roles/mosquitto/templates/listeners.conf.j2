@@ -8,7 +8,7 @@ listener {{ mosquitto_local_port }} 127.0.0.1
 allow_anonymous true
 
 # Sensor devices in the local network
-listener {{ mosquitto_external_port }} 0.0.0.0
+listener {{ mosquitto_external_port }} {{ mosquitto_external_bind_address }}
 allow_anonymous false
 password_file /etc/mosquitto/passwd
 acl_file /etc/mosquitto/acl

@@ -6,3 +6,6 @@
     owner: root
     group: root
     mode: "0755"
+
+- name: Configure Ansible sudo access
+  ansible.builtin.import_tasks: sudo.yml
