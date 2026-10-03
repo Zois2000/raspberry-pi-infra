@@ -15,6 +15,42 @@
     group: root
     mode: "0755"
 
+- name: Ensure Mosquitto cerificate directory exists
+  ansible.builtin.file:
+    path: /etc/mosquitto/certs
+    state: directory
+    owner: root
+    group: mosquitto
+    mode: "0750"
+
+- name: Install Mosquitto CA certificate
+  ansible.builtin.copy:
+    src: tls-ca.crt
+    dest: "{{ mosquitto_tls_ca_file }}"
+    owner: root
+    group: mosquitto
+    mode: "0644"
+  notify: Restart Mosquitto
+
+- name: Install Mosquitto server certificate
+  ansible.builtin.copy:
+    src: tls-server.crt
+    dest: "{{ mosquitto_tls_cert_file }}"
+    owner: root
+    group: mosquitto
+    mode: "0644"
+  notify: Restart Mosquitto
+
+- name: Install Mosquitto TLS private key
+  ansible.builtin.copy:
+    src: tls-server.key.vault
+    dest: "{{ mosquitto_tls_key_file }}"
+    owner: root
+    group: mosquitto
+    mode: "0640"
+  no_log: true
+  notify: Restart Mosquitto
+
 - name: Install Mosquitto password file
   ansible.builtin.copy:
     src: passwd.vault

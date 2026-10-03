@@ -7,8 +7,21 @@ per_listener_settings true
 listener {{ mosquitto_local_port }} 127.0.0.1
 allow_anonymous true
 
-# Sensor devices in the local network
-listener {{ mosquitto_external_port }} {{ mosquitto_external_bind_address }}
+{% if mosquitto_tls_enabled %}
+# TLS protected MQTT listener
+listener {{ mosquitto_tls_port }} {{ mosquitto_tls_bind_address }}
+
+cafile {{ mosquitto_tls_ca_file }}
+certfile {{ mosquitto_tls_cert_file }}
+keyfile {{ mosquitto_tls_key_file }}
+
+tls_version tlsv1.2
+
 allow_anonymous false
 password_file /etc/mosquitto/passwd
 acl_file /etc/mosquitto/acl
+{% endif %}
+
+
+
+

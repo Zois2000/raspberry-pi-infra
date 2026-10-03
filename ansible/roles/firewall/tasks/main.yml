@@ -29,13 +29,33 @@
     to_port: "1884"
     delete: true
 
-- name: Allow MQTT from sensor network
+- name: Allow MQTT from IoT network
   community.general.ufw:
     rule: allow
     proto: tcp
     from_ip: "{{ firewall_mqtt_source_network }}"
-    to_ip: "192.168.8.10"
+    to_ip: "{{ firewall_mqtt_destination_ip }}"
     to_port: "{{ firewall_mqtt_port }}"
+  when: firewall_manage_mqtt_legacy
+
+- name: Remove legacy MQTT access from IoT network
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    from_ip: "{{ firewall_mqtt_source_network }}"
+    to_ip: "{{ firewall_mqtt_destination_ip }}"
+    to_port: "{{ firewall_mqtt_legacy_port }}"
+    delete: true
+  when: not firewall_manage_mqtt_legacy
+
+- name: Allow MQTT over TLS from IoT network
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    from_ip: "{{ firewall_mqtt_source_network }}"
+    to_ip: "{{ firewall_mqtt_destination_ip }}"
+    to_port: "{{ firewall_mqtt_tls_port }}"
+  when: firewall_manage_mqtt_legacy
 
 - name: Ensure UFW is enabled
   community.general.ufw:

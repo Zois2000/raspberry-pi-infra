@@ -1,7 +1,13 @@
 ---
 mosquitto_local_port: 1883
-mosquitto_external_port: 1884
-mosquitto_external_bind_address: "192.168.8.10"
+
+mosquitto_tls_enabled: true
+mosquitto_tls_port: 8883
+mosquitto_tls_bind_address: "192.168.8.10"
+
+mosquitto_tls_ca_file: "/etc/mosquitto/certs/ca.crt"
+mosquitto_tls_cert_file: "/etc/mosquitto/certs/server.crt"
+mosquitto_tls_key_file: "/etc/mosquitto/certs/server.key"
 
 mosquitto_sensor_topic_prefix: "sensors"
 
