@@ -1,4 +1,9 @@
 ---
 firewall_mqtt_source_network: "192.168.10.0/24"
 firewall_mqtt_destination_ip: "192.168.8.10"
-firewall_mqtt_port: "1884"
+
+firewall_manage_mqtt_legacy: false
+firewall_mqtt_legacy_port: "1884"
+
+firewall_manage_mqtt_tls: true
+firewall_mqtt_tls_port: "8883"
